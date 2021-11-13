@@ -18,7 +18,8 @@
         <input type="button" value="Eraser" onclick="eraserf()">
     </div>
     <div id="divcanvas">
-        <canvas id="canvas" onmousedown="startPaint()" onmouseup="endPaint()" onmousemove="doPaint(event.offsetX, event.offsetY)"></canvas>
+        <canvas id="canvas" onmousedown="startPaint()" onmouseup="endPaint()" onmousemove="doPaint(event.offsetX, event.offsetY)"
+                ontouchstart="startPaint()" ontouchend="endPaint()" ontouchmove="doPaint(event.offsetX, event.offsetY)"></canvas>
     </div>
     <p>Brush Color:  <input type="color" id="colorbar" value="#000" onchange="changeColor(this.value)"> 
     Size:  <input type="range" min="5" max="50" value="5" id="brushsize" oninput=(changeBrush(this.value)+showsize(this.value))> 
