@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <title>Kiệt's Paint Canvas</title>
+    <div id="head">
+       <h1>Paint your dream!</h1>
+       <p>Set Height (150-1080)  <input type="range" min="150" max="1080" value="150" id="height" oninput="setHeight(this.value)">       
+       Set Width (300-1080) <input type="range" min="300" max="1080" value="300" id="width" oninput="setWidth(this.value)"> </p>
+    </div>
+    <div id='penanderaser'>
+        <input type="button" value="Pen" onclick="penf()">
+        <input type="button" value="Eraser" onclick="eraserf()">
+    </div>
+    <div id="divcanvas">
+        <canvas id="canvas" onmousedown="startPaint()" onmouseup="endPaint()" onmousemove="doPaint(event.offsetX, event.offsetY)"></canvas>
+    </div>
+    <p>Brush Color:  <input type="color" id="colorbar" value="#000" onchange="changeColor(this.value)"> 
+    Size:  <input type="range" min="5" max="50" value="5" id="brushsize" oninput=(changeBrush(this.value)+showsize(this.value))> 
+    <output id="sizeoutput">5</output> </p>
+    <input type="button" id="clear" value="Clear Canvas" onclick=(clearCanvas())>
+    <style>
+        body {background-color: lightgoldenrodyellow;}
+        #divcanvas {text-align: center;}
+        #penanderaser {text-align: center;}
+        canvas {
+            background-color: white;
+            border: 1px solid;
+        }
+    </style>
+  
+    <script>
+        var paintcanvas = document.getElementById("canvas");
+        var context = paintcanvas.getContext("2d");
+        var color = 'black';
+        var color_hidden = 'black';
+        var radius = 5;
+        var isPainting = false;
+        function setWidth (value) {paintcanvas.width=value;}
+        function setHeight (value) {paintcanvas.height=value;}
+        function startPaint() {isPainting = true;} 
+        function endPaint() {isPainting = false;}
+        function eraserf() {color='white';}
+        function penf() {color=color_hidden;}
+        function clearCanvas () {
+             context.clearRect(0, 0, paintcanvas.width, paintcanvas.height);
+        }
+        function doPaint(x, y) {
+            if (isPainting == true) {
+               paintCircle(x, y);
+            }
+        }
+        function paintCircle (x, y) {
+             context.beginPath();
+        // draw circle using a complete (2*PI) arc around given point
+             context.arc(x, y, radius, 0, Math.PI * 2, true);
+             context.fillStyle = color;
+             context.fill();
+        }
+        function changeBrush(newSize) {radius=newSize;}
+        function changeColor(newColor) {color=newColor; color_hidden=newColor;}
+        function showsize(inputsize) {document.getElementById('sizeoutput').innerHTML=inputsize;}
+        // verify the given value is actually a number
+        function isNumeric (value) {
+        // standard JavaScript function to determine whether a string is an illegal number
+             if (isNaN(value)) {
+                return true;
+             }
+        }
+
+  
+    </script>
+</body>
+</html>
